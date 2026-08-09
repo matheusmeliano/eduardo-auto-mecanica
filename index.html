@@ -14,40 +14,68 @@
   <body>
     <header class="topbar">
       <a class="brand" href="#inicio" aria-label="Eduardo Auto Mecânica - início">
-        <span class="brand-car" aria-hidden="true"></span>
-        <span class="brand-name">EDUARDO</span>
-        <span class="brand-subtitle">AUTO MECÂNICA</span>
-        <span class="brand-tagline">O jeito certo de tratar seu carro</span>
+        <img src="assets/logo-branca.png" alt="Eduardo Auto Mecânica" />
       </a>
       <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
       <nav class="navigation" aria-label="Navegação principal">
-        <a class="active" href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a href="#galeria">Galeria</a><a href="#contato">Contato</a>
+        <a class="active" href="#inicio">Início</a><a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a href="#galeria">Galeria</a><a href="#contato">Contato</a><a class="service-button" href="https://wa.me/5565999999999" target="_blank" rel="noreferrer">Atendimento</a>
       </nav>
-      <a class="service-button" href="https://wa.me/5565999999999" target="_blank" rel="noreferrer">Atendimento</a>
     </header>
 
     <main>
       <section class="hero" id="inicio">
-        <div class="hero-copy" id="sobre">
-          <p class="eyebrow">Mecânica especializada</p>
-          <h1>Eduardo Auto Mecânica</h1>
-          <p>Oferecemos serviços de manutenção automotiva de alta qualidade, incluindo alinhamento 3D e troca de óleo de câmbio automático. Nossa equipe especializada está preparada para cuidar de todas as suas necessidades, garantindo o desempenho ideal do seu veículo. Confie em nós para manter seu carro em perfeitas condições.</p>
+        <div class="hero-copy">
+          <p class="eyebrow">Eduardo Auto Mecânica</p>
+          <h1>Qualidade e confiança sempre perto de você.</h1>
+          <p>Manutenção automotiva especializada para cuidar de todos os detalhes do seu carro, com transparência, precisão e atendimento de confiança.</p>
           <a class="hero-link" href="#servicos">Conheça nossos serviços <span>→</span></a>
         </div>
-        <div class="hero-logo" aria-label="Logotipo Eduardo Auto Mecânica">
-          <span class="logo-car" aria-hidden="true"></span>
-          <strong>EDUARDO</strong><small>AUTO MECÂNICA</small><em>O jeito certo de tratar seu carro</em>
-        </div>
+        <div class="hero-media"><img src="assets/fachada.png" alt="Fachada da Eduardo Auto Mecânica" /></div>
+        <p class="hero-footer">O jeito certo de tratar seu carro.</p>
       </section>
 
       <section class="partners" aria-label="Marcas parceiras">
-        <img src="Marcas/rtvrtbrtb.jpg" alt="Pickup Comfort" />
-        <img src="Marcas/rtbrtb.jpg" alt="Monroe" />
-        <img class="bosch" src="Marcas/yumyum-1.jpg" alt="Bosch" />
-        <img src="Marcas/brtbrtb.jpg" alt="TRW" />
-        <img src="Marcas/erverv.jpg" alt="Gedore" />
-        <img src="Marcas/rtbrtb-1.jpg" alt="Axios" />
+        <button class="partner-control previous" type="button" aria-label="Marca anterior">←</button>
+        <div class="partners-viewport">
+          <div class="partners-track">
+            <div class="partner-slide"><img src="marcas/1.jpg" alt="Marca parceira 1" /></div>
+            <div class="partner-slide"><img src="marcas/2.jpg" alt="Marca parceira 2" /></div>
+            <div class="partner-slide"><img src="marcas/3.jpg" alt="Marca parceira 3" /></div>
+            <div class="partner-slide"><img src="marcas/4.jpg" alt="Marca parceira 4" /></div>
+            <div class="partner-slide"><img src="marcas/5.jpg" alt="Marca parceira 5" /></div>
+            <div class="partner-slide"><img src="marcas/6.jpg" alt="Marca parceira 6" /></div>
+            <div class="partner-slide"><img src="marcas/7.jpg" alt="Marca parceira 7" /></div>
+            <div class="partner-slide"><img src="marcas/8.jpg" alt="Marca parceira 8" /></div>
+            <div class="partner-slide"><img src="marcas/9.jpg" alt="Marca parceira 9" /></div>
+            <div class="partner-slide"><img src="marcas/10.jpg" alt="Marca parceira 10" /></div>
+            <div class="partner-slide"><img src="marcas/11.jpg" alt="Marca parceira 11" /></div>
+            <div class="partner-slide"><img src="marcas/12.jpg" alt="Marca parceira 12" /></div>
+          </div>
+        </div>
+        <button class="partner-control next" type="button" aria-label="Próxima marca">→</button>
       </section>
+
+      <section class="history" id="sobre" aria-labelledby="history-title">
+        <div class="history-heading"><p class="section-kicker">Desde 2010</p><h2 id="history-title">Conheça nossa história.</h2></div>
+        <div class="history-preview">
+          <p><strong>Proprietários:</strong> Eduardo e Viviane</p>
+          <p>De uma jornada iniciada aos 15 anos à própria oficina em Campo Novo do Parecis, a Eduardo Auto Mecânica foi construída com dedicação, aprendizado e paixão por carros.</p>
+          <button class="history-button" type="button" data-history-open>Mostrar mais <span>→</span></button>
+        </div>
+      </section>
+
+      <dialog class="history-dialog" aria-labelledby="history-dialog-title">
+        <article>
+          <button class="dialog-close" type="button" aria-label="Fechar história" data-history-close>×</button>
+          <p class="section-kicker">Nossa trajetória</p>
+          <h2 id="history-dialog-title">Conheça nossa história.</h2>
+          <p><strong>Proprietários:</strong> Eduardo e Viviane</p>
+          <p>Aos 15 anos Eduardo embarcou em uma jornada de trabalho que o levou do interior do Rio Grande do Sul para a movimentada cidade de Porto Alegre. Com determinação e esforço, ele trabalhou incansavelmente até os 19 anos, adquirindo experiência valiosa no mundo da mecânica automotiva.</p>
+          <p>Em 2001, o destino o trouxe para Mato Grosso, mais precisamente para Campo Novo do Parecis. Aqui, ele encontrou seu lugar e trabalhou em três oficinas locais, sempre buscando aprimorar suas habilidades e conhecimentos. Foi durante essa jornada que conheceu sua esposa, uma talentosa administradora recém-formada, que compartilhava seu amor pelo trabalho e o desejo de oferecer um serviço excepcional aos clientes.</p>
+          <p>Em junho de 2010, o casal decidiu transformar seus sonhos em realidade e inaugurou sua própria oficina mecânica. Desde então, Eduardo e sua esposa têm se dedicado incansavelmente ao negócio, trabalhando arduamente, inovando e aprimorando constantemente suas habilidades. Suas mentes empreendedoras e paixão pela excelência levaram a oficina a novos patamares de sucesso.</p>
+          <p>Hoje, a Eduardo Auto Mecânica não é apenas um centro de reparos automotivos, é um símbolo de dedicação, qualidade e compromisso com seus clientes. Eles continuam a expandir seus conhecimentos e a investir em inovações para fornecer serviços automotivos da mais alta qualidade.</p>
+        </article>
+      </dialog>
 
       <section class="services" id="servicos">
         <div><p class="section-kicker">O que fazemos</p><h2>Seu carro em boas mãos.</h2></div>
