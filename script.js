@@ -109,6 +109,70 @@ if (partners) {
   start();
 }
 
+document.querySelectorAll('.service-group .service-grid').forEach((grid) => {
+  const group = grid.closest('.service-group');
+  const title = group.querySelector('h3').textContent;
+  const cards = Array.from(grid.children);
+  const cloneCount = Math.min(3, cards.length);
+  const carousel = document.createElement('div');
+  const viewport = document.createElement('div');
+  const previousButton = document.createElement('button');
+  const nextButton = document.createElement('button');
+  let currentSlide = cloneCount;
+  let timer;
+
+  carousel.className = 'service-carousel';
+  viewport.className = 'service-carousel-viewport';
+  previousButton.className = 'partner-control previous';
+  previousButton.type = 'button';
+  previousButton.setAttribute('aria-label', `Serviço anterior em ${title}`);
+  previousButton.textContent = '←';
+  nextButton.className = 'partner-control next';
+  nextButton.type = 'button';
+  nextButton.setAttribute('aria-label', `Próximo serviço em ${title}`);
+  nextButton.textContent = '→';
+
+  const duplicateCard = (card) => {
+    const copy = card.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    return copy;
+  };
+
+  grid.prepend(...cards.slice(-cloneCount).map(duplicateCard));
+  grid.append(...cards.slice(0, cloneCount).map(duplicateCard));
+  grid.replaceWith(carousel);
+  viewport.append(grid);
+  carousel.append(previousButton, viewport, nextButton);
+
+  const visibleCards = () => window.innerWidth <= 720 ? 1 : window.innerWidth <= 1000 ? 2 : 3;
+  const render = () => {
+    grid.style.transform = `translateX(-${currentSlide * (100 / visibleCards())}%)`;
+  };
+  const move = (direction) => {
+    currentSlide += direction === 'next' ? 1 : -1;
+    render();
+  };
+  const resetLoop = () => {
+    if (currentSlide >= cards.length + cloneCount) currentSlide -= cards.length;
+    if (currentSlide < cloneCount) currentSlide += cards.length;
+    grid.style.transition = 'none';
+    render();
+    requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.transition = ''; }));
+  };
+  const start = () => { window.clearInterval(timer); timer = window.setInterval(() => move('next'), 4000); };
+
+  previousButton.addEventListener('click', () => { move('previous'); start(); });
+  nextButton.addEventListener('click', () => { move('next'); start(); });
+  carousel.addEventListener('mouseenter', () => window.clearInterval(timer));
+  carousel.addEventListener('mouseleave', start);
+  grid.addEventListener('transitionend', (event) => {
+    if (event.propertyName === 'transform') resetLoop();
+  });
+  window.addEventListener('resize', render);
+  render();
+  start();
+});
+
 const historyDialog = document.querySelector('.history-dialog');
 const historyOpen = document.querySelector('[data-history-open]');
 const historyClose = document.querySelector('[data-history-close]');
