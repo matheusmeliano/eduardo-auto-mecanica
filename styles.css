@@ -36,9 +36,9 @@ footer { background:var(--wine); color:#fff; padding:45px max(8vw,36px); text-al
     padding:14px 32px;
     justify-content:space-between;
     gap:0;
-    background:#fff;
-    color:var(--wine);
-    box-shadow:0 1px 10px rgba(0,0,0,.08);
+    background:var(--wine);
+    color:#fff;
+    box-shadow:0 1px 0 rgba(255,255,255,.12);
   }
 
   .brand {
@@ -46,7 +46,7 @@ footer { background:var(--wine); color:#fff; padding:45px max(8vw,36px); text-al
     min-width:184px;
     height:58px;
     transform:none;
-    filter:invert(1);
+    filter:none;
   }
 
   .navigation {
@@ -71,7 +71,7 @@ footer { background:var(--wine); color:#fff; padding:45px max(8vw,36px); text-al
   .navigation a.active { border-bottom:0; }
 
   .menu-toggle { position:relative; z-index:31; gap:6px; border:0; background:transparent; cursor:pointer; }
-  .menu-toggle span { width:29px; height:2px; background:var(--wine); transition:transform .2s ease, opacity .2s ease, width .2s ease; }
+  .menu-toggle span { width:29px; height:2px; background:#fff; transition:transform .2s ease, opacity .2s ease, width .2s ease; }
   .menu-toggle[aria-expanded="true"] { position:fixed; top:22px; right:20px; width:52px; height:52px; padding:0; display:grid; place-content:center; }
   .menu-toggle[aria-expanded="true"] span { width:38px; height:3px; background:#fff; }
   .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform:translateY(8px) rotate(45deg); }
