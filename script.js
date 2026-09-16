@@ -131,6 +131,8 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
   const previousButton = document.createElement('button');
   const nextButton = document.createElement('button');
   let currentSlide = 0;
+  let currentPosition = 1;
+  let visibleCount = 0;
   let timer;
   let initialTimer;
 
@@ -149,31 +151,54 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
   viewport.append(grid);
   carousel.append(previousButton, viewport, nextButton);
 
-  const visibleCards = () => {
+  const cardsPerSlide = () => {
     if (window.innerWidth <= 720) return 1;
     if (window.innerWidth <= 1000) return 2;
     return 3;
   };
-  const render = (direction = 'next') => {
-    const visible = visibleCards();
-    const activeCards = new Set(
-      Array.from({ length: visible }, (_, index) => cards[(currentSlide + index) % cards.length]),
-    );
-
-    cards.forEach((card) => {
-      const isVisible = activeCards.has(card);
-      card.hidden = !isVisible;
-      card.setAttribute('aria-hidden', String(!isVisible));
+  const createPage = (startIndex) => {
+    const page = document.createElement('div');
+    page.className = 'service-page';
+    for (let offset = 0; offset < visibleCount; offset += 1) {
+      page.append(cards[(startIndex + offset) % cards.length].cloneNode(true));
+    }
+    return page;
+  };
+  const updateAccessibility = () => {
+    Array.from(grid.children).forEach((page, index) => {
+      const isActive = index === currentPosition;
+      page.setAttribute('aria-hidden', String(!isActive));
     });
+  };
+  const render = () => {
+    updateAccessibility();
+    grid.style.transform = `translateX(-${currentPosition * 100}%)`;
+  };
+  const rebuild = () => {
+    visibleCount = cardsPerSlide();
+    grid.replaceChildren();
 
-    grid.dataset.direction = direction;
-    grid.classList.remove('is-changing');
-    void grid.offsetWidth;
-    grid.classList.add('is-changing');
+    const pages = cards.map((_, index) => createPage(index));
+    const leadingPage = pages.at(-1).cloneNode(true);
+    const trailingPage = pages[0].cloneNode(true);
+    grid.append(leadingPage, ...pages, trailingPage);
+
+    currentPosition = currentSlide + 1;
+    grid.style.transition = 'none';
+    render();
+    requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.transition = ''; }));
   };
   const move = (direction) => {
     currentSlide = (currentSlide + (direction === 'next' ? 1 : -1) + cards.length) % cards.length;
-    render(direction);
+    currentPosition += direction === 'next' ? 1 : -1;
+    render();
+  };
+  const resetLoop = () => {
+    if (currentPosition !== 0 && currentPosition !== cards.length + 1) return;
+    currentPosition = currentPosition === 0 ? cards.length : 1;
+    grid.style.transition = 'none';
+    render();
+    requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.transition = ''; }));
   };
   const stop = () => {
     window.clearTimeout(initialTimer);
@@ -191,8 +216,13 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
   nextButton.addEventListener('click', () => { move('next'); start(); });
   carousel.addEventListener('mouseenter', stop);
   carousel.addEventListener('mouseleave', start);
-  window.addEventListener('resize', () => render(autoDirection));
-  render();
+  grid.addEventListener('transitionend', (event) => {
+    if (event.propertyName === 'transform') resetLoop();
+  });
+  window.addEventListener('resize', () => {
+    if (cardsPerSlide() !== visibleCount) rebuild();
+  });
+  rebuild();
   start();
 });
 
