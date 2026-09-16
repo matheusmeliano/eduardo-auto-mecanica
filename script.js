@@ -123,6 +123,7 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
   let currentSlide = cloneCount;
   let timer;
   let initialTimer;
+  let resizeFrame;
 
   carousel.className = 'service-carousel';
   viewport.className = 'service-carousel-viewport';
@@ -149,6 +150,10 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
 
   const render = () => {
     grid.style.transform = `translateX(-${grid.children[currentSlide].offsetLeft}px)`;
+  };
+  const scheduleRender = () => {
+    window.cancelAnimationFrame(resizeFrame);
+    resizeFrame = window.requestAnimationFrame(render);
   };
   const move = (direction) => {
     currentSlide += direction === 'next' ? 1 : -1;
@@ -180,8 +185,10 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
   grid.addEventListener('transitionend', (event) => {
     if (event.propertyName === 'transform') resetLoop();
   });
-  window.addEventListener('resize', render);
+  window.addEventListener('resize', scheduleRender);
+  new ResizeObserver(scheduleRender).observe(viewport);
   render();
+  scheduleRender();
   start();
 });
 
