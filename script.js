@@ -124,17 +124,15 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
   const group = grid.closest('.service-group');
   const title = group.querySelector('h3').textContent;
   const cards = Array.from(grid.children);
-  const cloneCount = Math.min(3, cards.length);
   const autoDirection = groupIndex === 0 ? 'previous' : 'next';
   const autoDelay = groupIndex === 0 ? 4000 : 6000;
   const carousel = document.createElement('div');
   const viewport = document.createElement('div');
   const previousButton = document.createElement('button');
   const nextButton = document.createElement('button');
-  let currentSlide = cloneCount;
+  let currentSlide = 0;
   let timer;
   let initialTimer;
-  let resizeFrame;
 
   carousel.className = 'service-carousel';
   viewport.className = 'service-carousel-viewport';
@@ -147,35 +145,35 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
   nextButton.setAttribute('aria-label', `Próximo serviço em ${title}`);
   nextButton.textContent = '→';
 
-  const duplicateCard = (card) => {
-    const copy = card.cloneNode(true);
-    copy.setAttribute('aria-hidden', 'true');
-    return copy;
-  };
-
-  grid.prepend(...cards.slice(-cloneCount).map(duplicateCard));
-  grid.append(...cards.slice(0, cloneCount).map(duplicateCard));
   grid.replaceWith(carousel);
   viewport.append(grid);
   carousel.append(previousButton, viewport, nextButton);
 
-  const render = () => {
-    grid.style.transform = `translateX(-${grid.children[currentSlide].offsetLeft}px)`;
+  const visibleCards = () => {
+    if (window.innerWidth <= 720) return 1;
+    if (window.innerWidth <= 1000) return 2;
+    return 3;
   };
-  const scheduleRender = () => {
-    window.cancelAnimationFrame(resizeFrame);
-    resizeFrame = window.requestAnimationFrame(render);
+  const render = (direction = 'next') => {
+    const visible = visibleCards();
+    const activeCards = new Set(
+      Array.from({ length: visible }, (_, index) => cards[(currentSlide + index) % cards.length]),
+    );
+
+    cards.forEach((card) => {
+      const isVisible = activeCards.has(card);
+      card.hidden = !isVisible;
+      card.setAttribute('aria-hidden', String(!isVisible));
+    });
+
+    grid.dataset.direction = direction;
+    grid.classList.remove('is-changing');
+    void grid.offsetWidth;
+    grid.classList.add('is-changing');
   };
   const move = (direction) => {
-    currentSlide += direction === 'next' ? 1 : -1;
-    render();
-  };
-  const resetLoop = () => {
-    if (currentSlide >= cards.length + cloneCount) currentSlide -= cards.length;
-    if (currentSlide < cloneCount) currentSlide += cards.length;
-    grid.style.transition = 'none';
-    render();
-    requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.transition = ''; }));
+    currentSlide = (currentSlide + (direction === 'next' ? 1 : -1) + cards.length) % cards.length;
+    render(direction);
   };
   const stop = () => {
     window.clearTimeout(initialTimer);
@@ -193,13 +191,8 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
   nextButton.addEventListener('click', () => { move('next'); start(); });
   carousel.addEventListener('mouseenter', stop);
   carousel.addEventListener('mouseleave', start);
-  grid.addEventListener('transitionend', (event) => {
-    if (event.propertyName === 'transform') resetLoop();
-  });
-  window.addEventListener('resize', scheduleRender);
-  new ResizeObserver(scheduleRender).observe(viewport);
+  window.addEventListener('resize', () => render(autoDirection));
   render();
-  scheduleRender();
   start();
 });
 
