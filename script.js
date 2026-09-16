@@ -38,20 +38,36 @@ if (partners) {
   const slides = Array.from(partners.querySelectorAll('.partner-slide'));
   const previous = partners.querySelector('.previous');
   const next = partners.querySelector('.next');
-  let currentSlide = 0;
+  const cloneCount = Math.min(5, slides.length);
+  const copySlide = (slide) => {
+    const copy = slide.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    copy.querySelector('img').alt = '';
+    return copy;
+  };
+  const leadingCopies = slides.slice(-cloneCount).map(copySlide);
+  const trailingCopies = slides.slice(0, cloneCount).map(copySlide);
+  track.prepend(...leadingCopies);
+  track.append(...trailingCopies);
+
+  let currentSlide = cloneCount;
   let timer;
 
   const visibleSlides = () => window.innerWidth <= 420 ? 1 : window.innerWidth <= 720 ? 2 : window.innerWidth <= 900 ? 3 : 5;
   const render = () => {
     const visible = visibleSlides();
-    const lastSlide = Math.max(0, slides.length - visible);
-    currentSlide = Math.min(currentSlide, lastSlide);
     track.style.transform = `translateX(-${currentSlide * (100 / visible)}%)`;
   };
   const goTo = (direction) => {
-    const lastSlide = Math.max(0, slides.length - visibleSlides());
-    currentSlide = direction === 'next' ? (currentSlide >= lastSlide ? 0 : currentSlide + 1) : (currentSlide <= 0 ? lastSlide : currentSlide - 1);
+    currentSlide += direction === 'next' ? 1 : -1;
     render();
+  };
+  const resetLoop = () => {
+    if (currentSlide >= slides.length + cloneCount) currentSlide -= slides.length;
+    if (currentSlide < cloneCount) currentSlide += slides.length;
+    track.style.transition = 'none';
+    render();
+    requestAnimationFrame(() => requestAnimationFrame(() => { track.style.transition = ''; }));
   };
   const start = () => { timer = window.setInterval(() => goTo('next'), 4000); };
   const restart = () => { window.clearInterval(timer); start(); };
@@ -61,6 +77,9 @@ if (partners) {
   partners.addEventListener('mouseenter', () => window.clearInterval(timer));
   partners.addEventListener('mouseleave', start);
   window.addEventListener('resize', render);
+  track.addEventListener('transitionend', (event) => {
+    if (event.propertyName === 'transform') resetLoop();
+  });
   render();
   start();
 }
