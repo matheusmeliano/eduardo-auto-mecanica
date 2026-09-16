@@ -31,6 +31,24 @@ footer { background:var(--wine); color:#fff; padding:45px max(8vw,36px); text-al
 @media (max-width:720px) {
   body.menu-open { overflow:hidden; }
 
+  .topbar {
+    height:92px;
+    padding:14px 32px;
+    justify-content:space-between;
+    gap:0;
+    background:#fff;
+    color:var(--wine);
+    box-shadow:0 1px 10px rgba(0,0,0,.08);
+  }
+
+  .brand {
+    width:184px;
+    min-width:184px;
+    height:58px;
+    transform:none;
+    filter:invert(1);
+  }
+
   .navigation {
     display:flex;
     visibility:hidden;
@@ -52,10 +70,10 @@ footer { background:var(--wine); color:#fff; padding:45px max(8vw,36px); text-al
   .navigation a { font-size:25px; }
   .navigation a.active { border-bottom:0; }
 
-  .menu-toggle { position:relative; z-index:31; gap:5px; border:0; background:transparent; cursor:pointer; }
-  .menu-toggle span { width:25px; transition:transform .2s ease, opacity .2s ease, width .2s ease; }
+  .menu-toggle { position:relative; z-index:31; gap:6px; border:0; background:transparent; cursor:pointer; }
+  .menu-toggle span { width:29px; height:2px; background:var(--wine); transition:transform .2s ease, opacity .2s ease, width .2s ease; }
   .menu-toggle[aria-expanded="true"] { position:fixed; top:22px; right:20px; width:52px; height:52px; padding:0; display:grid; place-content:center; }
-  .menu-toggle[aria-expanded="true"] span { width:38px; height:3px; }
+  .menu-toggle[aria-expanded="true"] span { width:38px; height:3px; background:#fff; }
   .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform:translateY(8px) rotate(45deg); }
   .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity:0; }
   .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform:translateY(-8px) rotate(-45deg); }
