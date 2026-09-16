@@ -87,5 +87,5 @@ footer { background:var(--wine); color:#fff; padding:45px max(8vw,36px); text-al
   .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity:0; }
   .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform:translateY(-8px) rotate(-45deg); }
 
-  .navigation .service-button { min-width:0; margin:0; padding:0; border-radius:0; background:transparent; }
+  .navigation .service-button { min-width:0; margin:0; padding:0; border-radius:0; background:transparent; font-weight:400; }
 }
