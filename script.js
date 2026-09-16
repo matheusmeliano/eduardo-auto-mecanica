@@ -25,10 +25,35 @@ navigationLinks.forEach((link) => {
   });
 });
 
-document.querySelector('.service-button').addEventListener('click', closeMenu);
-
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && navigation.classList.contains('open')) closeMenu();
+});
+
+const contactModal = document.querySelector('.contact-modal');
+const contactClose = document.querySelector('.contact-close');
+const serviceButtons = document.querySelectorAll('.service-button');
+
+const closeContactModal = () => {
+  contactModal.classList.remove('open');
+  contactModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('contact-open');
+};
+
+serviceButtons.forEach((button) => {
+  button.addEventListener('click', (event) => {
+    event.preventDefault();
+    closeMenu();
+    contactModal.classList.add('open');
+    contactModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('contact-open');
+    contactClose.focus();
+  });
+});
+
+contactClose.addEventListener('click', closeContactModal);
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && contactModal.classList.contains('open')) closeContactModal();
 });
 
 const partners = document.querySelector('.partners');
