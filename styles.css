@@ -31,6 +31,7 @@ footer { background:var(--wine); color:#fff; padding:45px max(8vw,36px); text-al
 @media (max-width:720px) {
   .hero-link { font-size:15px; }
   .hero-link span { font-size:20px; }
+  .hero-footer { font-size:10px!important; letter-spacing:2.8px!important; }
 }
 
 
