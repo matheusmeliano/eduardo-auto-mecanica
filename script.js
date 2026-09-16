@@ -109,11 +109,12 @@ if (partners) {
   start();
 }
 
-document.querySelectorAll('.service-group .service-grid').forEach((grid) => {
+document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIndex) => {
   const group = grid.closest('.service-group');
   const title = group.querySelector('h3').textContent;
   const cards = Array.from(grid.children);
   const cloneCount = Math.min(3, cards.length);
+  const autoDirection = groupIndex === 0 ? 'previous' : 'next';
   const carousel = document.createElement('div');
   const viewport = document.createElement('div');
   const previousButton = document.createElement('button');
@@ -158,7 +159,7 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid) => {
     render();
     requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.transition = ''; }));
   };
-  const start = () => { window.clearInterval(timer); timer = window.setInterval(() => move('next'), 4000); };
+  const start = () => { window.clearInterval(timer); timer = window.setInterval(() => move(autoDirection), 4000); };
 
   previousButton.addEventListener('click', () => { move('previous'); start(); });
   nextButton.addEventListener('click', () => { move('next'); start(); });
