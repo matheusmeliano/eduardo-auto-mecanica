@@ -153,7 +153,11 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
   viewport.append(grid);
   carousel.append(previousButton, viewport, nextButton);
 
-  const cardsPerSlide = () => 1;
+  const cardsPerSlide = () => {
+    if (window.innerWidth <= 720) return 1;
+    if (window.innerWidth <= 1000) return 2;
+    return 3;
+  };
   const createPage = (startIndex) => {
     const page = document.createElement('div');
     page.className = 'service-page';
