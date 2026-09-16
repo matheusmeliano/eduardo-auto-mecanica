@@ -115,12 +115,14 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
   const cards = Array.from(grid.children);
   const cloneCount = Math.min(3, cards.length);
   const autoDirection = groupIndex === 0 ? 'previous' : 'next';
+  const autoDelay = groupIndex === 0 ? 4000 : 6000;
   const carousel = document.createElement('div');
   const viewport = document.createElement('div');
   const previousButton = document.createElement('button');
   const nextButton = document.createElement('button');
   let currentSlide = cloneCount;
   let timer;
+  let initialTimer;
 
   carousel.className = 'service-carousel';
   viewport.className = 'service-carousel-viewport';
@@ -159,11 +161,21 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
     render();
     requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.transition = ''; }));
   };
-  const start = () => { window.clearInterval(timer); timer = window.setInterval(() => move(autoDirection), 4000); };
+  const stop = () => {
+    window.clearTimeout(initialTimer);
+    window.clearInterval(timer);
+  };
+  const start = () => {
+    stop();
+    initialTimer = window.setTimeout(() => {
+      move(autoDirection);
+      timer = window.setInterval(() => move(autoDirection), 4000);
+    }, autoDelay);
+  };
 
   previousButton.addEventListener('click', () => { move('previous'); start(); });
   nextButton.addEventListener('click', () => { move('next'); start(); });
-  carousel.addEventListener('mouseenter', () => window.clearInterval(timer));
+  carousel.addEventListener('mouseenter', stop);
   carousel.addEventListener('mouseleave', start);
   grid.addEventListener('transitionend', (event) => {
     if (event.propertyName === 'transform') resetLoop();
