@@ -68,7 +68,14 @@ footer { background:var(--wine); color:#fff; padding:45px max(8vw,36px); text-al
 
   .navigation.open { visibility:visible; opacity:1; pointer-events:auto; }
   .navigation a { font-size:25px; }
-  .navigation a.active { border-bottom:0; }
+  .navigation a.active {
+    min-width:190px;
+    padding:15px 22px;
+    border:0;
+    border-radius:9px;
+    background:#d91b22;
+    text-align:center;
+  }
 
   .menu-toggle { position:relative; z-index:31; gap:6px; border:0; background:transparent; cursor:pointer; }
   .menu-toggle span { width:29px; height:2px; background:#fff; transition:transform .2s ease, opacity .2s ease, width .2s ease; }
@@ -78,5 +85,5 @@ footer { background:var(--wine); color:#fff; padding:45px max(8vw,36px); text-al
   .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity:0; }
   .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform:translateY(-8px) rotate(-45deg); }
 
-  .service-button { min-width:190px; margin:10px 0 0; padding:15px 22px; }
+  .navigation .service-button { min-width:0; margin:0; padding:0; border-radius:0; background:transparent; }
 }
