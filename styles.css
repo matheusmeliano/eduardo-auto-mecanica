@@ -1,4 +1,4 @@
-:root { --red:#d3171e; --dark-red:#ac1015; --wine:#9e1015; --text:#fff; --ink:#17171a; }
+:root { --red:#d3171e; --dark-red:#ac1015; --wine:#9e1015; --text:#fff; --ink:#17171a; --page-surface:#fff; --panel-surface:#eaeeee; --card-surface:#f0f4f4; --content-surface:#fff; }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 #inicio, #sobre, #servicos, #galeria, #contato { scroll-margin-top:120px; }
@@ -122,3 +122,10 @@ body.contact-open { overflow:hidden; }
 .services { --services-inline-padding:max(8vw,36px); padding-left:var(--services-inline-padding); padding-right:var(--services-inline-padding); }
 .products-panel { margin-left:calc(0px - var(--services-inline-padding)); margin-right:calc(0px - var(--services-inline-padding)); padding-left:var(--services-inline-padding); padding-right:var(--services-inline-padding); }
 @media (max-width:720px) { .services { --services-inline-padding:28px; }.products-panel { margin-left:-28px; margin-right:-28px; padding-left:28px; padding-right:28px; } }
+
+/* A paleta visual é idêntica em desktop, tablet e mobile. */
+.partners, .services, .gallery { background:var(--page-surface); }
+.history, .products-panel { background:var(--panel-surface); }
+.history-preview, .products-list { background:var(--content-surface); }
+.service-grid .service-card { background:var(--card-surface); }
+@media (max-width:720px) { .partners, .services, .gallery { background:var(--page-surface); }.history, .products-panel { background:var(--panel-surface); }.history-preview, .products-list { background:var(--content-surface); }.service-grid .service-card { background:var(--card-surface); } }
