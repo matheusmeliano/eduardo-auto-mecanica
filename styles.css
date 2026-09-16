@@ -1,4 +1,4 @@
-:root { --red:#d3171e; --dark-red:#ac1015; --wine:#9e1015; --text:#fff; --ink:#17171a; --page-surface:#fff; --panel-surface:#eaeeee; --card-surface:#f0f4f4; --content-surface:#fff; }
+:root { --red:#d3171e; --dark-red:#ac1015; --wine:#9e1015; --text:#fff; --ink:#17171a; --page-surface:#fff; --panel-surface:#f0f4f4; --card-surface:#f0f4f4; --content-surface:#fff; }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 #inicio, #sobre, #servicos, #galeria, #contato { scroll-margin-top:120px; }
@@ -130,7 +130,7 @@ body.contact-open { overflow:hidden; }
 .service-grid .service-card { background:var(--card-surface); }
 @media (max-width:720px) {
   .partners, .services, .gallery { background-color:#fff!important; }
-  .history, .products-panel { background-color:#eaeeee!important; }
+  .history, .products-panel { background-color:#f0f4f4!important; }
   .history-preview, .products-list { background-color:#fff!important; }
   .service-grid .service-card, .service-carousel .service-card { background-color:#f0f4f4!important; }
 }
