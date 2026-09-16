@@ -135,8 +135,6 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
   let visibleCount = 0;
   let timer;
   let initialTimer;
-  let isAnimating = false;
-  let transitionFallback;
 
   carousel.className = 'service-carousel';
   viewport.className = 'service-carousel-viewport';
@@ -177,8 +175,6 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
     grid.style.transform = `translateX(-${currentPosition * 100}%)`;
   };
   const rebuild = () => {
-    isAnimating = false;
-    window.clearTimeout(transitionFallback);
     visibleCount = cardsPerSlide();
     grid.replaceChildren();
 
@@ -193,22 +189,16 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
     requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.transition = ''; }));
   };
   const move = (direction) => {
-    if (isAnimating) return;
-    isAnimating = true;
     currentSlide = (currentSlide + (direction === 'next' ? 1 : -1) + cards.length) % cards.length;
     currentPosition += direction === 'next' ? 1 : -1;
     render();
-    transitionFallback = window.setTimeout(resetLoop, 650);
   };
   const resetLoop = () => {
-    window.clearTimeout(transitionFallback);
-    isAnimating = false;
-    if (currentPosition === 0 || currentPosition === cards.length + 1) {
-      currentPosition = currentPosition === 0 ? cards.length : 1;
-      grid.style.transition = 'none';
-      render();
-      requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.transition = ''; }));
-    }
+    if (currentPosition !== 0 && currentPosition !== cards.length + 1) return;
+    currentPosition = currentPosition === 0 ? cards.length : 1;
+    grid.style.transition = 'none';
+    render();
+    requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.transition = ''; }));
   };
   const stop = () => {
     window.clearTimeout(initialTimer);
