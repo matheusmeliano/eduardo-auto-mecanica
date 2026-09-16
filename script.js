@@ -78,7 +78,7 @@ if (partners) {
   let currentSlide = cloneCount;
   let timer;
 
-  const visibleSlides = () => window.innerWidth <= 420 ? 1 : window.innerWidth <= 720 ? 2 : window.innerWidth <= 900 ? 3 : 5;
+  const visibleSlides = () => window.innerWidth <= 720 ? 2 : window.innerWidth <= 900 ? 3 : 5;
   const render = () => {
     const visible = visibleSlides();
     track.style.transform = `translateX(-${currentSlide * (100 / visible)}%)`;
