@@ -1,10 +1,22 @@
 const toggle = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.navigation');
+const closeMenuButton = document.querySelector('.menu-close');
+
+const closeMenu = () => {
+  navigation.classList.remove('open');
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-label', 'Abrir menu');
+  document.body.classList.remove('menu-open');
+};
 
 toggle.addEventListener('click', () => {
   const isOpen = navigation.classList.toggle('open');
   toggle.setAttribute('aria-expanded', isOpen);
+  toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+  document.body.classList.toggle('menu-open', isOpen);
 });
+
+closeMenuButton.addEventListener('click', closeMenu);
 
 const navigationLinks = document.querySelectorAll('.navigation a:not(.service-button)');
 
@@ -12,14 +24,14 @@ navigationLinks.forEach((link) => {
   link.addEventListener('click', () => {
     navigationLinks.forEach((navigationLink) => navigationLink.classList.remove('active'));
     link.classList.add('active');
-    navigation.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
+    closeMenu();
   });
 });
 
-document.querySelector('.service-button').addEventListener('click', () => {
-  navigation.classList.remove('open');
-  toggle.setAttribute('aria-expanded', 'false');
+document.querySelector('.service-button').addEventListener('click', closeMenu);
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && navigation.classList.contains('open')) closeMenu();
 });
 
 const partners = document.querySelector('.partners');
