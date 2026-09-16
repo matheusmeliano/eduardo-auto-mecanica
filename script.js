@@ -1,12 +1,10 @@
 const toggle = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.navigation');
-const closeMenuButton = document.querySelector('.menu-close');
 
 const closeMenu = () => {
   navigation.classList.remove('open');
   toggle.setAttribute('aria-expanded', 'false');
   toggle.setAttribute('aria-label', 'Abrir menu');
-  toggle.hidden = false;
   document.body.classList.remove('menu-open');
 };
 
@@ -14,11 +12,8 @@ toggle.addEventListener('click', () => {
   const isOpen = navigation.classList.toggle('open');
   toggle.setAttribute('aria-expanded', isOpen);
   toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
-  toggle.hidden = isOpen;
   document.body.classList.toggle('menu-open', isOpen);
 });
-
-closeMenuButton.addEventListener('click', closeMenu);
 
 const navigationLinks = document.querySelectorAll('.navigation a:not(.service-button)');
 
