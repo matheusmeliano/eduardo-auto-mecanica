@@ -128,4 +128,9 @@ body.contact-open { overflow:hidden; }
 .history, .products-panel { background:var(--panel-surface); }
 .history-preview, .products-list { background:var(--content-surface); }
 .service-grid .service-card { background:var(--card-surface); }
-@media (max-width:720px) { .partners, .services, .gallery { background:var(--page-surface); }.history, .products-panel { background:var(--panel-surface); }.history-preview, .products-list { background:var(--content-surface); }.service-grid .service-card { background:var(--card-surface); } }
+@media (max-width:720px) {
+  .partners, .services, .gallery { background-color:#fff!important; }
+  .history, .products-panel { background-color:#eaeeee!important; }
+  .history-preview, .products-list { background-color:#fff!important; }
+  .service-grid .service-card, .service-carousel .service-card { background-color:#f0f4f4!important; }
+}
