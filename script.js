@@ -25,6 +25,17 @@ navigationLinks.forEach((link) => {
   });
 });
 
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (!target) return;
+
+    event.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+  });
+});
+
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && navigation.classList.contains('open')) closeMenu();
 });
