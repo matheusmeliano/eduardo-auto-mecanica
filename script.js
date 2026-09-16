@@ -144,9 +144,8 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid) => {
   viewport.append(grid);
   carousel.append(previousButton, viewport, nextButton);
 
-  const visibleCards = () => window.innerWidth <= 720 ? 1 : window.innerWidth <= 1000 ? 2 : 3;
   const render = () => {
-    grid.style.transform = `translateX(-${currentSlide * (100 / visibleCards())}%)`;
+    grid.style.transform = `translateX(-${grid.children[currentSlide].offsetLeft}px)`;
   };
   const move = (direction) => {
     currentSlide += direction === 'next' ? 1 : -1;
