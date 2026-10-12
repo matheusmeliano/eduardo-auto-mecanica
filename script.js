@@ -225,8 +225,6 @@ if (galleryCarousel && galleryLightbox) {
   const galleryPrevious = galleryCarousel.querySelector('.gallery-control.previous');
   const galleryNext = galleryCarousel.querySelector('.gallery-control.next');
   const galleryLightboxImage = galleryLightbox.querySelector('.gallery-lightbox-image');
-  const galleryLightboxCounter = galleryLightbox.querySelector('.gallery-lightbox-counter');
-  const galleryLightboxClose = galleryLightbox.querySelector('.gallery-lightbox-close');
   const galleryLightboxPrevious = galleryLightbox.querySelector('.gallery-lightbox-control.previous');
   const galleryLightboxNext = galleryLightbox.querySelector('.gallery-lightbox-control.next');
   const cloneCount = Math.min(3, galleryItems.length);
@@ -274,13 +272,12 @@ if (galleryCarousel && galleryLightbox) {
     const image = galleryItems[activeLightboxIndex].querySelector('img');
     galleryLightboxImage.src = image.currentSrc || image.src;
     galleryLightboxImage.alt = image.alt;
-    galleryLightboxCounter.textContent = `Imagem ${activeLightboxIndex + 1} de ${galleryItems.length}`;
   };
 
   const openGalleryLightbox = (index) => {
     setLightboxSlide(index);
     galleryLightbox.showModal();
-    galleryLightboxClose.focus();
+    galleryLightboxNext.focus();
   };
 
   galleryItems.forEach((item, index) => {
@@ -293,7 +290,6 @@ if (galleryCarousel && galleryLightbox) {
     if (event.propertyName === 'transform') resetGalleryLoop();
   });
 
-  galleryLightboxClose.addEventListener('click', () => galleryLightbox.close());
   galleryLightboxPrevious.addEventListener('click', () => setLightboxSlide(activeLightboxIndex - 1));
   galleryLightboxNext.addEventListener('click', () => setLightboxSlide(activeLightboxIndex + 1));
   galleryLightbox.addEventListener('click', (event) => {
