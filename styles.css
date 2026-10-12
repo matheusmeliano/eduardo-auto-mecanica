@@ -40,7 +40,7 @@ body { margin:0; font-family:Montserrat,Arial,sans-serif; color:var(--ink); }
 footer { padding:44px max(8vw,36px) 0; background:#fff; border-top:1px solid #eceff0; }
 .footer-shell { max-width:1220px; margin:0 auto; }
 .footer-main { display:grid; grid-template-columns:minmax(280px,.9fr) minmax(0,2.1fr); gap:48px; align-items:start; padding-bottom:34px; }
-.footer-brand-panel { display:flex; flex-direction:column; align-items:center; text-align:center; padding:10px 10px 0; }
+.footer-brand-panel { display:flex; flex-direction:column; align-items:center; text-align:center; padding:4px 10px 0; }
 .footer-logo-box { width:132px; height:132px; display:grid; place-items:center; margin-bottom:0; border-radius:0; background:#fff; box-shadow:none; }
 .footer-logo-box img { width:88%; height:88%; object-fit:contain; }
 .footer-brand { color:var(--red); font-size:clamp(20px,1.9vw,24px); font-weight:500; letter-spacing:-.5px; line-height:1.1; white-space:nowrap; }
