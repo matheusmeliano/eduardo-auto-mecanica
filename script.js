@@ -214,3 +214,115 @@ if (historyDialog && historyOpen && historyClose) {
     if (event.target === historyDialog) historyDialog.close();
   });
 }
+
+const galleryCarousel = document.querySelector('.gallery-carousel');
+const galleryLightbox = document.querySelector('.gallery-lightbox');
+
+if (galleryCarousel && galleryLightbox) {
+  const galleryViewport = galleryCarousel.querySelector('.gallery-viewport');
+  const galleryTrack = galleryCarousel.querySelector('.gallery-track');
+  const galleryItems = Array.from(galleryTrack.querySelectorAll('.gallery-item'));
+  const galleryPrevious = galleryCarousel.querySelector('.gallery-control.previous');
+  const galleryNext = galleryCarousel.querySelector('.gallery-control.next');
+  const galleryLightboxImage = galleryLightbox.querySelector('.gallery-lightbox-image');
+  const galleryLightboxCounter = galleryLightbox.querySelector('.gallery-lightbox-counter');
+  const galleryLightboxClose = galleryLightbox.querySelector('.gallery-lightbox-close');
+  const galleryLightboxPrevious = galleryLightbox.querySelector('.gallery-lightbox-control.previous');
+  const galleryLightboxNext = galleryLightbox.querySelector('.gallery-lightbox-control.next');
+  const cloneCount = Math.min(3, galleryItems.length);
+  let currentGallerySlide = cloneCount;
+  let activeLightboxIndex = 0;
+
+  const duplicateGalleryItem = (item) => {
+    const copy = item.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    copy.tabIndex = -1;
+    copy.removeAttribute('data-gallery-index');
+    return copy;
+  };
+
+  galleryTrack.prepend(...galleryItems.slice(-cloneCount).map(duplicateGalleryItem));
+  galleryTrack.append(...galleryItems.slice(0, cloneCount).map(duplicateGalleryItem));
+
+  const visibleGallerySlides = () => {
+    if (window.innerWidth <= 720) return 1;
+    if (window.innerWidth <= 1000) return 2;
+    return 3;
+  };
+
+  const renderGalleryCarousel = () => {
+    const activeItem = galleryTrack.children[currentGallerySlide];
+    if (!activeItem) return;
+    galleryTrack.style.transform = `translateX(-${activeItem.offsetLeft}px)`;
+  };
+
+  const moveGalleryCarousel = (direction) => {
+    currentGallerySlide += direction === 'next' ? 1 : -1;
+    renderGalleryCarousel();
+  };
+
+  const resetGalleryLoop = () => {
+    if (currentGallerySlide >= galleryItems.length + cloneCount) currentGallerySlide -= galleryItems.length;
+    if (currentGallerySlide < cloneCount) currentGallerySlide += galleryItems.length;
+    galleryTrack.style.transition = 'none';
+    renderGalleryCarousel();
+    requestAnimationFrame(() => requestAnimationFrame(() => { galleryTrack.style.transition = ''; }));
+  };
+
+  const setLightboxSlide = (index) => {
+    activeLightboxIndex = (index + galleryItems.length) % galleryItems.length;
+    const image = galleryItems[activeLightboxIndex].querySelector('img');
+    galleryLightboxImage.src = image.currentSrc || image.src;
+    galleryLightboxImage.alt = image.alt;
+    galleryLightboxCounter.textContent = `Imagem ${activeLightboxIndex + 1} de ${galleryItems.length}`;
+  };
+
+  const openGalleryLightbox = (index) => {
+    setLightboxSlide(index);
+    galleryLightbox.showModal();
+    galleryLightboxClose.focus();
+  };
+
+  galleryItems.forEach((item, index) => {
+    item.addEventListener('click', () => openGalleryLightbox(index));
+  });
+
+  galleryPrevious.addEventListener('click', () => moveGalleryCarousel('previous'));
+  galleryNext.addEventListener('click', () => moveGalleryCarousel('next'));
+  galleryTrack.addEventListener('transitionend', (event) => {
+    if (event.propertyName === 'transform') resetGalleryLoop();
+  });
+
+  galleryLightboxClose.addEventListener('click', () => galleryLightbox.close());
+  galleryLightboxPrevious.addEventListener('click', () => setLightboxSlide(activeLightboxIndex - 1));
+  galleryLightboxNext.addEventListener('click', () => setLightboxSlide(activeLightboxIndex + 1));
+  galleryLightbox.addEventListener('click', (event) => {
+    if (event.target === galleryLightbox) galleryLightbox.close();
+  });
+
+  let galleryResizeFrame;
+  const scheduleGalleryRender = () => {
+    window.cancelAnimationFrame(galleryResizeFrame);
+    galleryResizeFrame = window.requestAnimationFrame(renderGalleryCarousel);
+  };
+
+  new ResizeObserver(() => {
+    currentGallerySlide = Math.max(cloneCount, Math.min(currentGallerySlide, galleryItems.length + cloneCount - 1));
+    scheduleGalleryRender();
+  }).observe(galleryViewport);
+
+  window.addEventListener('resize', () => {
+    const visible = visibleGallerySlides();
+    const maxIndex = galleryItems.length + cloneCount - visible;
+    currentGallerySlide = Math.min(currentGallerySlide, Math.max(cloneCount, maxIndex));
+    scheduleGalleryRender();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!galleryLightbox.open) return;
+    if (event.key === 'ArrowLeft') setLightboxSlide(activeLightboxIndex - 1);
+    if (event.key === 'ArrowRight') setLightboxSlide(activeLightboxIndex + 1);
+  });
+
+  renderGalleryCarousel();
+}

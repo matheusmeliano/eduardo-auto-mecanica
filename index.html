@@ -113,8 +113,24 @@
 
       <section class="gallery" id="galeria">
         <p class="section-kicker">Nossa oficina</p><h2>Estrutura para cuidar do seu veículo.</h2>
-        <div class="gallery-grid">
-          <img src="Fotos/IMG-20230828-WA0038.jpg" alt="Equipe trabalhando na oficina" /><img src="Fotos/IMG-20230828-WA0036.jpg" alt="Serviço automotivo na Eduardo Auto Mecânica" /><img src="Fotos/IMG-20230828-WA0035.jpg" alt="Interior da oficina" />
+        <p class="gallery-intro">Conheça nossa estrutura em um carrossel de imagens. Clique em qualquer foto para abrir a visualização completa e navegar pelos slides.</p>
+        <div class="gallery-carousel" aria-label="Galeria da oficina">
+          <button class="gallery-control previous" type="button" aria-label="Imagem anterior">←</button>
+          <div class="gallery-viewport">
+            <div class="gallery-track">
+              <button class="gallery-item" type="button" data-gallery-index="0"><img src="Fotos/edu-1.png" alt="Vista interna da oficina Eduardo Auto Mecânica" loading="lazy" /></button>
+              <button class="gallery-item" type="button" data-gallery-index="1"><img src="Fotos/edu-2.png" alt="Fachada da Eduardo Auto Mecânica" loading="lazy" /></button>
+              <button class="gallery-item" type="button" data-gallery-index="2"><img src="Fotos/edu-3.png" alt="Entrada principal da oficina" loading="lazy" /></button>
+              <button class="gallery-item" type="button" data-gallery-index="3"><img src="Fotos/edu-4.png" alt="Espaço de manutenção automotiva" loading="lazy" /></button>
+              <button class="gallery-item" type="button" data-gallery-index="4"><img src="Fotos/edu-5.png" alt="Área de atendimento e serviços da oficina" loading="lazy" /></button>
+              <button class="gallery-item" type="button" data-gallery-index="5"><img src="Fotos/edu-6.png" alt="Estrutura interna com veículos em serviço" loading="lazy" /></button>
+              <button class="gallery-item" type="button" data-gallery-index="6"><img src="Fotos/edu-7.png" alt="Equipamentos e estrutura da oficina" loading="lazy" /></button>
+              <button class="gallery-item" type="button" data-gallery-index="7"><img src="Fotos/edu-8.png" alt="Área de trabalho da Eduardo Auto Mecânica" loading="lazy" /></button>
+              <button class="gallery-item" type="button" data-gallery-index="8"><img src="Fotos/edu-9.png" alt="Ambiente interno com boxes de serviço" loading="lazy" /></button>
+              <button class="gallery-item" type="button" data-gallery-index="9"><img src="Fotos/edu-10.png" alt="Estrutura da oficina para manutenção de veículos" loading="lazy" /></button>
+            </div>
+          </div>
+          <button class="gallery-control next" type="button" aria-label="Próxima imagem">→</button>
         </div>
       </section>
     </main>
@@ -148,6 +164,24 @@
         <article class="hours-card"><h2>Horário de atendimento</h2><p>Segunda à sexta: 07:00 às 11:30 / 13:00 às 18:00</p><p>Sábado: 07:00 às 12:00</p><p>Domingo: Fechado</p></article>
       </div>
     </section>
+
+    <dialog class="gallery-lightbox" aria-labelledby="gallery-lightbox-title">
+      <div class="gallery-lightbox-shell">
+        <button class="gallery-lightbox-close" type="button" aria-label="Fechar galeria"><span></span><span></span><span></span></button>
+        <div class="gallery-lightbox-header">
+          <p class="section-kicker">Galeria completa</p>
+          <h2 id="gallery-lightbox-title">Visualize nossa estrutura em slides.</h2>
+          <p class="gallery-lightbox-counter" aria-live="polite"></p>
+        </div>
+        <div class="gallery-lightbox-stage">
+          <button class="gallery-lightbox-control previous" type="button" aria-label="Slide anterior">←</button>
+          <figure class="gallery-lightbox-figure">
+            <img class="gallery-lightbox-image" src="" alt="" />
+          </figure>
+          <button class="gallery-lightbox-control next" type="button" aria-label="Próximo slide">→</button>
+        </div>
+      </div>
+    </dialog>
     <script src="script.js"></script>
   </body>
 </html>
