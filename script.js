@@ -206,12 +206,26 @@ document.querySelectorAll('.service-group .service-grid').forEach((grid, groupIn
 const historyDialog = document.querySelector('.history-dialog');
 const historyOpen = document.querySelector('[data-history-open]');
 const historyClose = document.querySelector('[data-history-close]');
+const privacyDialog = document.querySelector('.privacy-dialog');
+const privacyOpen = document.querySelector('.privacy-trigger');
+const privacyClose = document.querySelector('[data-privacy-close]');
 
 if (historyDialog && historyOpen && historyClose) {
   historyOpen.addEventListener('click', () => historyDialog.showModal());
   historyClose.addEventListener('click', () => historyDialog.close());
   historyDialog.addEventListener('click', (event) => {
     if (event.target === historyDialog) historyDialog.close();
+  });
+}
+
+if (privacyDialog && privacyOpen && privacyClose) {
+  privacyOpen.addEventListener('click', (event) => {
+    event.preventDefault();
+    privacyDialog.showModal();
+  });
+  privacyClose.addEventListener('click', () => privacyDialog.close());
+  privacyDialog.addEventListener('click', (event) => {
+    if (event.target === privacyDialog) privacyDialog.close();
   });
 }
 
