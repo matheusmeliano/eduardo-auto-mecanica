@@ -42,7 +42,7 @@ document.addEventListener('keydown', (event) => {
 
 const contactModal = document.querySelector('.contact-modal');
 const contactClose = document.querySelector('.contact-close');
-const serviceButtons = document.querySelectorAll('.service-button');
+const serviceButtons = document.querySelectorAll('.service-button, .contact-trigger');
 
 const closeContactModal = () => {
   contactModal.classList.remove('open');
