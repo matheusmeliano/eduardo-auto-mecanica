@@ -33,7 +33,7 @@ body { margin:0; font-family:Montserrat,Arial,sans-serif; color:var(--ink); }
 .gallery-lightbox-stage { display:grid; grid-template-columns:56px minmax(0,1fr) 56px; gap:18px; align-items:center; }
 .gallery-lightbox-figure { margin:0; border-radius:0; overflow:hidden; background:transparent; box-shadow:none; }
 .gallery-lightbox-image { width:100%; max-height:72vh; display:block; object-fit:contain; background:transparent; }
-.gallery-lightbox-control { position:relative; top:-10px; width:56px; height:56px; padding:0; border:0; border-radius:50%; background:var(--red); color:#fff; cursor:pointer; font:500 28px/1 Arial,sans-serif; transition:transform .2s ease, opacity .2s ease; }
+.gallery-lightbox-control { position:relative; top:-16px; width:56px; height:56px; padding:0; border:0; border-radius:50%; background:var(--red); color:#fff; cursor:pointer; font:500 28px/1 Arial,sans-serif; transition:transform .2s ease, opacity .2s ease; }
 .gallery-lightbox-control:hover { transform:scale(1.05); }
 .gallery-lightbox-control:active { transform:scale(.96); }
 .gallery-lightbox-control:focus-visible { outline:3px solid rgba(211,23,30,.28); outline-offset:3px; }
