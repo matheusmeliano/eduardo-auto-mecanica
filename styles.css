@@ -54,7 +54,7 @@ footer { padding:44px max(8vw,36px) 0; background:#fff; border-top:1px solid #ec
 .footer-bottom { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:22px 0 24px; border-top:1px solid #eceff0; }
 .footer-bottom p, .footer-bottom span { margin:0; color:#4b4f55; font-size:14px; line-height:1.6; }
 .hero-footer { z-index:3; grid-column:1 / -1; width:100%; }
-@media (max-width:1000px) {
+@media (max-width:1250px) {
   .footer-main { grid-template-columns:1fr; gap:34px; padding-bottom:30px; }
   .footer-brand-panel { align-items:flex-start; margin-top:0; text-align:left; padding-inline:0; max-width:420px; }
   .footer-logo-box { width:120px; margin-bottom:16px; }
